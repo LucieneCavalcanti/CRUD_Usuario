@@ -9,11 +9,12 @@ import model.UsuarioModel;
 public class UsuarioData
 extends Conexao implements CRUD {
 
+    public UsuarioData() throws Exception {
+        super();
+    }
     @Override
     public boolean incluir(UsuarioModel obj) throws Exception {
-        String sql = "insert into tbusuarios
-         (nome,email,tipo)
-         values (?,?,?)";
+        String sql = "insert into tbusuarios (nome,email,tipo) values (?,?,?)";
        PreparedStatement ps = getConexao().
             prepareStatement(sql);
         ps.setString(1, obj.getNome());
@@ -25,9 +26,7 @@ extends Conexao implements CRUD {
     }
     @Override
     public boolean editar(UsuarioModel obj) throws Exception {
-        String sql = "update tbusuarios
-         set nome=?,email=?,tipo=?
-         where id=?";
+        String sql = "update tbusuarios set nome=?,email=?,tipo=? where id=?";
        PreparedStatement ps = getConexao().
             prepareStatement(sql);
         ps.setString(1, obj.getNome());
@@ -53,8 +52,7 @@ extends Conexao implements CRUD {
     @Override
     public ArrayList<UsuarioModel> pesquisar(String pesquisa) throws Exception {
         ArrayList<UsuarioModel> dados = new ArrayList<>();
-        String sql = "select * from tbusuarios where 
-        nome like ?";
+        String sql = "select * from tbusuarios where nome like ?";
         PreparedStatement ps = getConexao().
         prepareStatement(sql);
         ps.setString(1, pesquisa+"%");
