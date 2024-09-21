@@ -67,5 +67,20 @@ extends Conexao implements CRUD {
         }
         return dados;
     }
-
+    public UsuarioModel pesquisar(int id) throws Exception {
+        String sql = "select * from tbusuarios where id = ?";
+        PreparedStatement ps = getConexao().
+        prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        UsuarioModel obj = null;
+        if(rs.next()){
+            obj = new UsuarioModel(
+                rs.getInt("id"),
+                rs.getString("nome"),
+                rs.getString("email"),
+                rs.getInt("tipo"));
+        }
+        return obj;
+    }
 }
